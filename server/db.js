@@ -53,7 +53,6 @@ module.exports = {
     },
 
     async login(name, password) {
-        console.log(name, password, 1)
         const encryptPassword = crypto.createHash('md5').update(password).digest('hex')
         const db = await open({filename: DBNAME, driver: sqlite3.Database})
         const sql = `select * from admin where name="${name}" and password="${encryptPassword}";`

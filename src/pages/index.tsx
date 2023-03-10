@@ -18,6 +18,7 @@ const normFile = (e: any) => {
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [fetching, setFetching] = useState(false)
 
   const [form] = Form.useForm()
 
@@ -38,19 +39,33 @@ const App: React.FC = () => {
   }
 
   const handleOk = async () => {
-    const { name, govIDNumber } = form.getFieldsValue()
-    const fileRes = await uploadFile(file as RcFile)
-    const data = { name, id: govIDNumber, picUrl: fileRes.data.kraked_url }
-    const res = await fetch('/api/save', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    }).then(res => res.json())
-
-    setIsModalOpen(false)
-    if (res.code === 200) {
-      message.success('submit successfully')
+    if (fetching) {
+      return
     }
-    form.resetFields()
+    setFetching(true)
+    try {
+      const { name, govIDNumber } = form.getFieldsValue()
+      const fileRes = await uploadFile(file as RcFile)
+      const data = { name, id: govIDNumber, picUrl: fileRes.data.kraked_url }
+
+      const res = await fetch('/api/save', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      }).then(res => res.json())
+      if (res.code === 200) {
+        message.success('submit successfully')
+      }
+      form.resetFields()
+    } catch (error) {
+    } finally {
+      setFetching(false)
+      setIsModalOpen(false)
+    }
+  }
+
+  const handleCancel = () => {
+    setFetching(false)
+    setIsModalOpen(false)
   }
 
   return (
@@ -107,11 +122,12 @@ const App: React.FC = () => {
         </Form.Item>
       </Form>
 
-      <Modal 
+      <Modal
         title="Confirmation"
-        open={isModalOpen} 
-        onOk={handleOk} 
-        onCancel={() => setIsModalOpen(false)}
+        open={isModalOpen}
+        closable={false}
+        onOk={handleOk}
+        onCancel={handleCancel}
       >
         <p>Do you canfirm to submit?</p>
       </Modal>
