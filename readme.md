@@ -16,4 +16,4 @@ then go to the http://localhost:3000 to visit the demo page.
 #### backend
 - framework: Koa
 - database: sqlite
-- cloud storage: [kraken]('https://kraken.io/docs/upload-url')
+- cloud storage: [kraken](https://kraken.io/docs/upload-url)
