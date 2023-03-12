@@ -7,6 +7,12 @@ npm start
 
 then go to the http://localhost:3000 to visit the demo page.
 
+admin page: http://localhost:3000/admin
+
+**usename: admin**
+
+**password: admin**
+
 ### tech stack
 
 #### frontend
