@@ -17,3 +17,11 @@ then go to the http://localhost:3000 to visit the demo page.
 - framework: Koa
 - database: sqlite
 - cloud storage: [kraken](https://kraken.io/docs/upload-url)
+
+### docker
+
+if you have docker installed in your computer, run:
+```bash
+docker compose up
+```
+then go to http://localhost:3000 to visit it.

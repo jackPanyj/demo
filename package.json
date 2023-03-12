@@ -8,7 +8,7 @@
     "setup": "umi setup",
     "start": "npm run build && npm run start:server",
     "start:fe": "npm run dev",
-    "start:server": "nodemon server/index.js"
+    "start:server": "node server/index.js"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
